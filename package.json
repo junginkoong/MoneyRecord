@@ -1,0 +1,23 @@
+{
+  "name": "moneyrecord",
+  "version": "1.0.0",
+  "description": "Records money purchase",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "keywords": [
+    "heroku",
+    "web"
+  ],
+  "author": "jungin-koong",
+  "license": "ISC",
+  "engines": {
+    "node": "16.13.2",
+    "npm": "8.1.2"
+  },
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
