@@ -13,28 +13,7 @@ router.get('/', function(req, res, next) {
     }
 });
 
-router.get("/getemaill", function (request, response){
-    var firstname = request.query.firstname;
-
-    if (firstname != "") {
-        response.send("Your email address is " + firstname + "@gullele.com");
-    } else {
-        response.send("Please provide us first name");
-    }
-});
-
 router.get("/signin", function(req, res) {
-    var email = 'testuser@mail.com';
-    var  password = 'test'
-    pool.query(queries.checkUserLogIn, [email, password], (err, res) => {
-        if (err) {
-            console.log("Error - Failed");
-            console.log(err);
-        }
-        else{
-            // console.log(res.rows);
-        }
-    });
     res.render('signin', {});
 });
 
@@ -43,23 +22,41 @@ router.post("/signin", function(req, res) {
     var password = req.body.password;
     pool.query(queries.checkUserLogIn, [email, password], (e, r) => {
         if (e) {
-            res.status(401).send('faill');
+            res.status(401).send('fail');
         }
         else{
             if (r.rows.length != 1){
-                res.status(401).send('failll');
+                res.status(201).send('fail');
             }else{
                 session=req.session;
                 session.userid=req.body.email;
-                console.log(r.rows);
-                res.status(200).send('loginn');
+                res.status(200).send('login');
             }
         }
     });
 });
 
 router.get("/signup", function(req, res) {
-    res.render('signin', {});
+    res.render('signup', {});
+});
+
+router.post("/signup", function(req, res) {
+    var email = req.body.email;
+    var password = req.body.password;
+    var first_name = req.body.password;
+    var last_name = req.body.password;
+    pool.query(queries.addUser, [email, password, first_name, last_name], (e, r) => {
+        if (r !== undefined && r.rowCount == 1){
+            res.status(200).send('created');
+        } else {
+            res.status(401).send('fail');
+        }
+    });
+});
+
+router.get("/signout", function(req, res) {
+    req.session.userid = null;
+    res.redirect('/');
 });
 
 

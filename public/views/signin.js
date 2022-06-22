@@ -7,19 +7,30 @@ $(document).ready(function(){
             url: '/signin',
             dataType: 'text',
             data: {
-            email: $('input[name=email]').val(),
-            password: $('input[name=password]').val()
+                email: $('input[name=email]').val(),
+                password: $('input[name=password]').val()
             },
             success: function(data, textStatus, xhr){
                 if(xhr.status == 200) {
                     window.location.href = '/';   
                 }else{
-                    console.log('failure');
+                    $("#error_notif").show();
                 }
             },
             
-        }).done(function(data) {
-            console.log('plz work');
         });
     });
+
+    var forms = document.querySelectorAll('.needs-validation');
+    Array.prototype.slice.call(forms)
+		.forEach(function (form) {
+			form.addEventListener('submit', function (event) {
+				if (!form.checkValidity()) {
+					event.preventDefault()
+					event.stopPropagation()
+				}
+
+				form.classList.add('was-validated')
+			}, false);
+		});
 });
