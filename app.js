@@ -36,8 +36,10 @@ app.use(express.static(path.join(__dirname, '/public/')));
 
 
 var indexRouter = require('./server/routes');
+var projectRouter = require('./server/projects');
 
 app.use('/', indexRouter);
+app.use('/projects', projectRouter);
 
 app.listen(port, () => {
   console.log(`App listening at http://localhost:${port}`)

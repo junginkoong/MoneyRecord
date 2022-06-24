@@ -103,3 +103,8 @@ footer {
         line-height: 70px;
     }
 }
+
+img.projectlogo {
+    width: 270px;
+    height: 250px;
+}

@@ -9,108 +9,59 @@
     <title>Home</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.css" rel="stylesheet">
+    <!-- <link href="css/bootstrap.css" rel="stylesheet"> -->
 
     <!-- Custom CSS for the '3 Col Portfolio' Template -->
     <link href="css/stylesheet.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
   </head>
 
   <body>
-    <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="/">Money Record</a>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-          <ul class="nav navbar-nav">
-            <li><a href="#about">About</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
-          <% if (username) { %>
-            <ul class="nav navbar-nav navbar-right">
-              <li><a><%= username %></a></li>
-              <li><a href="/signout">Log out</a></li>
-            </ul>
-          <% } else { %>
-            <ul class="nav navbar-nav navbar-right">
-              <li><a href="/signin">Sign In</a></li>
-              <li><a href="/signup">Sign Up</a></li>
-            </ul>
-          <% } %>
-        </div><!-- /.navbar-collapse -->
-      </div><!-- /.container -->
-    </nav>
+    <%-include('nav.ejs', {username: username});%>
 
     <div class="container">
-
       <div class="row">
-
-        <div class="col-lg-12">
-          <h1 class="page-header"> Projects <small>Track purchase history</small></h1>
+        <div class="col-lg-5">
+          <h1 class="page-header mt-3"> Projects </h1>
         </div>
-
       </div>
-
       <div class="row">
-
-        <div class="col-md-4 portfolio-item">
-          <!-- <a href="#project-link"><img class="img-responsive" src="http://placehold.it/700x400"></a> -->
-          <h3><a href="#project-link">Project Name</a></h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
+        <div class="col container-sm py-2 mt-2">
+          <div id=project class="portfolio-item">
+            <a href="/projects/personal_record">
+              <img class="img-responsive projectlogo" src="images/golden_coin.jpg">
+            </a>
+            <h3><a href="/projects/personal_record" class="text-dark">Personal Record</a></h3>
+            <p>Save personal purchases and view summary of historical data. The summary can be viewed in tables and charts with different options of categorization.</p>
+          </div>
         </div>
-
-        <div class="col-md-4 portfolio-item">
-          <!-- <a href="#project-link"><img class="img-responsive" src="http://placehold.it/700x400"></a> -->
-          <h3><a href="#project-link">Project Name</a></h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
+        <div class="col container-sm py-2 mt-2">
+          <div id=project class="portfolio-item">
+            <a href="/projects/personal_record">
+              <!-- <img class="img-responsive projectlogo" src="images/golden_coin.jpg"> -->
+            </a>
+            <h3><a href="/projects/personal_record" class="text-decoration-none">Place Holder</a></h3>
+            <p>Place holder.</p>
+          </div>
         </div>
-
-        <div class="col-md-4 portfolio-item">
-          <!-- <a href="#project-link"><img class="img-responsive" src="http://placehold.it/700x400"></a> -->
-          <h3><a href="#project-link">Project Name</a></h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
+        <div class="col container-sm py-2 mt-2">
+          <div id=project class="portfolio-item">
+            <a href="/projects/personal_record">
+              <!-- <img class="img-responsive projectlogo" src="images/golden_coin.jpg"> -->
+            </a>
+            <h3><a href="/projects/personal_record">Place Holder</a></h3>
+            <p>Place holder.</p>
+          </div>
         </div>
-
       </div>
-
-      <hr>
-
-      <div class="row text-center">
-        
-        <div class="col-lg-12">
-          <ul class="pagination">
-            <li><a href="#">&laquo;</a></li>
-            <li class="active"><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li><a href="#">&raquo;</a></li>
-          </ul>        
-        </div>
-
-      </div>
-
-    </div><!-- /.container -->
+    </div>
 
     <div class="container">
-
       <hr>
-
       <footer>
         <div class="row">
-          <div class="col-lg-12">
             <p>Author: Jung In Koong</p>
-          </div>
         </div>
       </footer>
       
