@@ -87,11 +87,27 @@
             <!-- Submit button -->
             <button type="submit" class="btn btn-primary btn-block mb-4">Record</button>
           </form>
+          <h2 class="page-header mt-5"> Add Friends </h2>
+          <form action="/projects/addfriend" method="POST">
+            <div class="row mb-4">
+              <div class="col">
+                <label class="form-label">Name</label>
+                <div class="input-group">
+                  <input type="text" id="name" class="form-control" name="name"/>
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block mb-4">Submit</button>
+          </form>
         </div>
         <div class="col container-sm py-2 mt-2">
-          <h2 class="page-header mt-3"> Chart </h2>
-          <div class="card chart-container">
+          <h2 class="page-header mt-3"> Spending Summary </h2>
+          <div class="card" style="border: none;">
             <canvas id="chart"></canvas>
+          </div>
+          <h2 class="page-header mt-3"> Friend Summary </h2>
+          <div class="card" style="border: none;">
+            <canvas id="chart-friend"></canvas>
           </div>
         </div>
       </div>
@@ -103,34 +119,85 @@
     });
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
-<script src="../views/personal_record.js"></script>
 <script>
+  // Script for Spending History.
   const ctx = document.getElementById("chart").getContext('2d');
   const dates = "<%=dates%>";
   const datas = "<%=datas%>";
+
+  // Declare Chart
   const myChart = new Chart(ctx, {
   type: 'line',
   data: {
-      labels: dates.split(','),
-      datasets: [{
-      label: 'Last week',
-      backgroundColor: 'rgba(161, 198, 247, 1)',
+    labels: dates.split(','),
+    datasets: [{
+      label: 'Spent',
+      backgroundColor: 'rgba(255, 255, 255, 0)',
       borderColor: 'rgb(47, 128, 237)',
       data: datas.split(','),
-      }]
+    }]
   },
   options: {
-      scales: {
-        xAxes: [{
-          type: 'time'
-        }],
-        yAxes: [{
-          ticks: {
-            beginAtZero: true,
-          }
-        }]
-      }
+    scales: {
+      xAxes: [{
+        type: 'time'
+      }],
+      yAxes: [{
+        ticks: {
+          beginAtZero: true,
+        }
+      }]
+    }
   },
   });
+</script>
+<script>
+  // Script for Friend History
+  const ctx1 = document.getElementById("chart-friend").getContext('2d');
+  const dates1 = "<%=friend_dates%>".split(',');
+  const length = dates1.length
+  const friends = "<%=friend_names%>".split(',');
+  var datas1 = "<%=friend_datas%>".split(',').map(s => s=='' ? null : s);
+  var color;
+  
+  // Declare Chart
+  const myChart1 = new Chart(ctx1, {
+  type: 'line',
+  data: {
+    labels: dates1,
+    datasets: []
+  },
+  showTooltips: true,
+  options: {
+    spanGaps: true,
+    scales: {
+      xAxes: [{
+        type: 'time'
+      }],
+      yAxes: [{
+        ticks: {
+          beginAtZero: true,
+        }
+      }]
+    }
+  },
+  });
+
+  // Initialize dataset template
+  var newDataset = {
+    label: "",
+    backgroundColor: 'rgba(255, 255, 255, 0)',
+    borderColor: "",
+    data: [],
+  }
+
+  // Dynamically add dataset to chart
+  for(let i=0; i< friends.length; i++){
+    newDataset.borderColor = 'rgb(' + Math.floor(Math.random() * 255)+','+Math.floor(Math.random() * 255)+','+Math.floor(Math.random() * 255)+')';
+    newDataset.label = friends[i];
+    newDataset.data = datas1.splice(0, length);
+    myChart1.data.datasets.push({...newDataset});
+  }
+  myChart1.update();
 </script>
 </html>
