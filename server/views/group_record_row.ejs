@@ -1,0 +1,30 @@
+<div class="row mb-4">
+    <div class="col">
+        <div class="form-outline">
+        <label class="form-label" for="form6Example1">Amount ($)</label>
+        <div class="input-group">
+            <span class="input-group-text">$</span>
+            <input type="number" id="amount" min="1" step="any" class="form-control" name="amount"/>
+        </div>
+        </div>
+    </div>
+    <div class="col">
+        <label class="form-label" for="form6Example2">Payee</label>
+        <!-- <input id="payee" name="payee" class="form-control" type="text" /> -->
+        <select class="form-select" aria-label="Default select example" name="payee">
+            <option value='myself'">Myself</option>
+            <% for (let i=0; i < friends.length; i++) {%>
+                <option value="<%= friends[i].name %>"><%= friends[i].name %></option>
+            <% } %>
+        </select>
+    </div>
+    <div class="col">
+        <label class="form-label" for="form6Example2">Friends</label>
+        <select name="select2" class="select2" name="friend" multiple="" style="width: 100%;">
+            <option value="<%= ['dummy','myself'] %>">Myself</option>
+            <% for (let i=0; i < friends.length; i++) {%>
+                <option value="<%= [friends[i].id,friends[i].name] %>"><%= friends[i].name %></option>
+            <% } %>
+        </select>
+    </div>
+</div>

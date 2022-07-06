@@ -1,4 +1,5 @@
 var express = require('express');
+var url = require('url'); 
 var router = express.Router();
 var pool = require('./models/database');
 const queries = require('./fixed_data/queries');
@@ -50,13 +51,7 @@ router.post('/personal_record', function(req, res, next) {
     var date = req.body.date;
 
     // Set up multiselect data
-    if (!Array.isArray(friend)){
-        if (friend == ""){
-            friend = [];
-        } else {
-            friend = [friend];
-        }
-    }
+    friend = helper.multiselectHelper(friend);
 
     // Save records for friends
     for (let i=0; i<friend.length; i++) {
@@ -97,4 +92,38 @@ router.post('/addfriend', function(req, res, next) {
     res.redirect('/projects/personal_record');
 });
 
+
+// Group Record Page
+router.get('/group_record', function(req, res, next) {
+    session=req.session;
+    if(session.userId){
+        // Query to get Friend
+        pool.query(queries.getFriend, [session.userId], (e, r) => {
+            if (e){
+                res.status(401).send('fail');
+            } else {
+                res.render('group_record',{username: session.userEmail, friends: r.rows});
+            }
+        });
+    } else {
+        res.redirect('/signin');
+    }
+});
+
+router.post('/group_record', function(req, res, next) {
+    session=req.session;
+    var amount = req.body.amount;
+    var payee = req.body.payee;
+    var select2 = req.body.select2;
+    var length = req.body.length;
+    var tip = req.body.tip;
+    var dummy_user = 'dummy'
+    console.log(req.body);
+    select2 = helper.multiselectHelper(select2);
+    payee = helper.multiselectHelper(payee);
+    length = helper.multiselectHelper(length);
+    tip = tip == '' ? '0' : tip;
+    var record = helper.getGroupRecordSummary(amount, payee, select2, length, tip);
+    res.render('result.ejs', {username: session.userEmail, record: record});
+});
 module.exports = router;
